@@ -21,3 +21,5 @@ further functions handle:
 
   quality decrease: decreases by value passed to it
   sellIn decrease: decreases by value passed to it
+
+CONJURED ITEMS

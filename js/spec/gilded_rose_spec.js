@@ -8,10 +8,28 @@ describe("Gilded Rose", function() {
       expect(items[0].sell_in).toEqual(4);
     });
 
-    it('Decreases quality by 1 per day', function(){
+    it('Decreases quality by 1 per day while sellIn is >0', function(){
       items = [ new Item('Elixir of the Mongoose', 5, 7) ];
       update_quality();
       expect(items[0].quality).toEqual(6);
+    });
+
+    it('Decreases quality by 2 per day while sellIn is =0', function(){
+      items = [ new Item('Elixir of the Mongoose', 0, 7) ];
+      update_quality();
+      expect(items[0].quality).toEqual(5);
+    });
+
+    it('Decreases quality by 2 per day while sellIn is <0', function(){
+      items = [ new Item('Elixir of the Mongoose', 0, 5) ];
+      update_quality();
+      expect(items[0].quality).toEqual(3);
+    });
+
+    it('Quality is never negative', function(){
+      items = [ new Item('Elixir of the Mongoose', 2, 0) ];
+      update_quality();
+      expect(items[0].quality).toEqual(0);
     });
 
   });
@@ -64,13 +82,53 @@ describe("Gilded Rose", function() {
       expect(items[0].sell_in).toEqual(14);
     });
 
+    it('Quality is never negative', function(){
+      items = [ new Item('Backstage passes to a TAFKAL80ETC concert', -1, 0) ];
+      update_quality();
+      expect(items[0].quality).toEqual(0);
+    });
+
   });
 
   describe('SULFURAS', function(){
 
+    it('Quality does not reduce', function(){
+      items = [ new Item('Sulfuras, Hand of Ragnaros', -1, 80) ];
+      update_quality();
+      expect(items[0].quality).toEqual(80);
+    });
+
+    it('sellIn reduces by 1 per day', function(){
+      items = [ new Item('Sulfuras, Hand of Ragnaros', 0, 80) ];
+      update_quality();
+      expect(items[0].sell_in).toEqual(0);
+    });
+
   });
 
   describe('CONJURED ITEMS', function(){
+
+    it('Quality reduces at double rate', function(){
+      items = [ new Item('Conjured Mana Cake', 3, 6) ];
+      update_quality();
+      expect(items[0].quality).toEqual(4);
+    });
+
+    it('sellIn reduces by 1 per day', function(){
+      items = [ new Item('Conjured Mana Cake', 3, 6) ];
+      update_quality();
+      expect(items[0].sell_in).toEqual(2);
+    });
+
+    it('Quality is never negative', function(){
+      items = [ new Item('Conjured Mana Cake', 3, 0) ];
+      update_quality();
+      expect(items[0].quality).toEqual(0);
+    });
+
+    add: x2 quality decrese for conjured items
+    quality never more than 50 for all except Sulfuras
+
 
   });
 });
