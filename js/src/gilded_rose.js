@@ -6,6 +6,10 @@ function Item(name, sell_in, quality) {
 
 var items = []
 
+function qualityDecrease(item, modifier) {
+  item.quality -= modifier;
+};
+
 function update_quality() {
   for (var i = 0; i < items.length; i++) {
     if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {

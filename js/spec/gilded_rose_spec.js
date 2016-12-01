@@ -32,6 +32,12 @@ describe("Gilded Rose", function() {
       expect(items[0].quality).toEqual(0);
     });
 
+    xit('Quality is never more than 50', function(){
+      items = [ new Item('Elixir of the Mongoose', 2, 80) ];
+      update_quality();
+      expect(items[0].quality).toEqual(50);
+    });
+
   });
 
   describe('AGED BRIE', function() {
@@ -48,30 +54,42 @@ describe("Gilded Rose", function() {
       expect(items[0].sell_in).toEqual(1);
     });
 
+    it('Quality is never more than 50', function(){
+      items = [ new Item('Aged Brie', 2, 49) ];
+      update_quality();
+      expect(items[0].quality).toEqual(50);
+    });
+
   });
 
   describe('BACKSTAGE PASSES', function(){
 
-    it('Increases quality by 1 when more than 10 days left', function(){
+    it('Increases quality by 1 when >10 days left', function(){
       items = [ new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20) ];
       update_quality();
       expect(items[0].quality).toEqual(21);
     });
 
-    it('Increases quality by 2 when 10 or fewer days left', function(){
+    it('Increases quality by 2 when 10 days left', function(){
       items = [ new Item('Backstage passes to a TAFKAL80ETC concert', 10, 20) ];
       update_quality();
       expect(items[0].quality).toEqual(22);
     });
 
-    it('Increases quality by 3 when 5 or fewer days left', function(){
+    it('Increases quality by 3 when 5 days left', function(){
       items = [ new Item('Backstage passes to a TAFKAL80ETC concert', 5, 20) ];
       update_quality();
       expect(items[0].quality).toEqual(23);
     });
 
-    it('Quality is 0 when -1 days left', function(){
+    it('Quality is 0 when 0 days left', function(){
       items = [ new Item('Backstage passes to a TAFKAL80ETC concert', 0, 20) ];
+      update_quality();
+      expect(items[0].quality).toEqual(0);
+    });
+
+    it('Quality is 0 when -1 days left', function(){
+      items = [ new Item('Backstage passes to a TAFKAL80ETC concert', -1, 20) ];
       update_quality();
       expect(items[0].quality).toEqual(0);
     });
@@ -88,11 +106,17 @@ describe("Gilded Rose", function() {
       expect(items[0].quality).toEqual(0);
     });
 
+    it('Quality is never more than 50', function(){
+      items = [ new Item('Backstage passes to a TAFKAL80ETC concert', 1, 49) ];
+      update_quality();
+      expect(items[0].quality).toEqual(50);
+    });
+
   });
 
   describe('SULFURAS', function(){
 
-    it('Quality does not reduce', function(){
+    it('Quality does not change', function(){
       items = [ new Item('Sulfuras, Hand of Ragnaros', -1, 80) ];
       update_quality();
       expect(items[0].quality).toEqual(80);
@@ -108,7 +132,7 @@ describe("Gilded Rose", function() {
 
   describe('CONJURED ITEMS', function(){
 
-    it('Quality reduces at double rate', function(){
+    xit('Quality reduces at double rate', function(){
       items = [ new Item('Conjured Mana Cake', 3, 6) ];
       update_quality();
       expect(items[0].quality).toEqual(4);
@@ -126,9 +150,11 @@ describe("Gilded Rose", function() {
       expect(items[0].quality).toEqual(0);
     });
 
-    add: x2 quality decrese for conjured items
-    quality never more than 50 for all except Sulfuras
-
+    xit('Quality is never more than 50', function(){
+      items = [ new Item('Conjured Mana Cake', 3, 80) ];
+      update_quality();
+      expect(items[0].quality).toEqual(50);
+    });
 
   });
 });
