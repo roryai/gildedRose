@@ -34,6 +34,16 @@ function brieQualityHandler(item) {
   qualityChange(item, BRIE_QUALITY_MOD);
 };
 
+function ticketsQualityHandler(item) {
+  if (item.quality >10) {
+    qualityChange(item, TICKETS_11_PLUS_DAYS_MOD)
+  } else if (item.quality > 5) {
+    qualityChange(item, TICKETS_10_TO_6_DAYS_MOD)
+  } else if (item.quality > 0) {
+    qualityChange(item, TICKETS_5_TO_1_DAYS_MOD)
+  } else {item.quality = 0}
+};
+
 function update_quality() {
   for (var i = 0; i < items.length; i++) {
     if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
@@ -45,21 +55,14 @@ function update_quality() {
       }
     } else {
       if (items[i].quality < 50) {
-        items[i].quality = items[i].quality + 1
+        // items[i].quality = items[i].quality + 1
         if (items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-          if (items[i].sell_in < 11) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1
-            }
-          }
-          if (items[i].sell_in < 6) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1
-            }
-          }
+          ticketsQualityHandler(items[i])
         }
       }
     }
+
+
     if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
       sellInChange(items[i]);
     }
@@ -72,7 +75,7 @@ function update_quality() {
             }
           }
         } else {
-          items[i].quality = items[i].quality - items[i].quality
+          // items[i].quality = items[i].quality - items[i].quality
         }
       } else {
         if (items[i].quality < 50) {
