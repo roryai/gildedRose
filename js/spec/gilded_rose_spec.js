@@ -32,7 +32,7 @@ describe("Gilded Rose", function() {
       expect(items[0].quality).toEqual(0);
     });
 
-    xit('Quality is never more than 50', function(){
+    it('Quality is never more than 50', function(){
       items = [ new Item('Elixir of the Mongoose', 2, 80) ];
       update_quality();
       expect(items[0].quality).toEqual(50);
@@ -132,7 +132,7 @@ describe("Gilded Rose", function() {
 
   describe('CONJURED ITEMS', function(){
 
-    xit('Quality reduces at double rate', function(){
+    it('Quality reduces at double rate', function(){
       items = [ new Item('Conjured Mana Cake', 3, 6) ];
       update_quality();
       expect(items[0].quality).toEqual(4);
@@ -150,7 +150,7 @@ describe("Gilded Rose", function() {
       expect(items[0].quality).toEqual(0);
     });
 
-    xit('Quality is never more than 50', function(){
+    it('Quality is never more than 50', function(){
       items = [ new Item('Conjured Mana Cake', 3, 80) ];
       update_quality();
       expect(items[0].quality).toEqual(50);

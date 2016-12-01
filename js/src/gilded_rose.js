@@ -12,64 +12,11 @@ var TICKETS_5_TO_1_DAYS_MOD   = 3;
 var CONJURED_QUALITY_MOD      = -2;
 var BRIE_QUALITY_MOD          = 1;
 
-var PASSES_0_DAYS_QUALITY     = 0;
 var QUALITY_UPPER_LIMIT       = 50;
 var QUALITY_LOWER_LIMIT       = 0;
 
 var items = []
-
-function qualityChange(item, modifier) {
-  item.quality += modifier
-  if (item.quality < QUALITY_LOWER_LIMIT) {
-    item.quality = 0
-  } else if (item.quality > QUALITY_UPPER_LIMIT) {
-    item.quality = 50
-  }
-  sellInChange(item)
-};
-
-function sellInChange(item) {
-  item.sell_in -= 1;
-};
-
-function standardQualityHandler(item) {
-  if (item.sell_in > 0) {
-    qualityChange(item, STANDARD_QUALITY_MOD);
-
-  } else if (item.sell_in <= 0) {
-    qualityChange(item, STANDARD_PAST_SELL_IT_MOD);
-
-  }
-};
-
-function brieQualityHandler(item) {
-  qualityChange(item, BRIE_QUALITY_MOD);
-
-};
-
-function sulfurasHandler(item) {
-  sellInChange(item)
-};
-
-function conjuredHandler(item) {
-  sellInChange(item)
-};
-
-function backstagePassesQualityHandler(item) {
-  if (item.sell_in > 10) {
-    qualityChange(item, TICKETS_11_PLUS_DAYS_MOD)
-
-  } else if (item.sell_in > 5) {
-    qualityChange(item, TICKETS_10_TO_6_DAYS_MOD)
-
-  } else if (item.sell_in > 0) {
-    qualityChange(item, TICKETS_5_TO_1_DAYS_MOD)
-
-  } else if (item.sell_in <= 0) {
-    item.quality = 0;
-    sellInChange(item)
-  } else {item.sell_in = 0}
-};
+// _______________________________________________________________________
 
 function update_quality() {
   for (var i = 0; i < items.length; i++) {
@@ -84,3 +31,60 @@ function update_quality() {
     } else {standardQualityHandler(items[i])}
   }
 }
+
+function brieQualityHandler(item) {
+  itemProcessor(item, BRIE_QUALITY_MOD);
+};
+
+function backstagePassesQualityHandler(item) {
+  if (item.sell_in > 10) {
+    itemProcessor(item, TICKETS_11_PLUS_DAYS_MOD)
+  } else if (item.sell_in > 5) {
+    itemProcessor(item, TICKETS_10_TO_6_DAYS_MOD)
+  } else if (item.sell_in > 0) {
+    itemProcessor(item, TICKETS_5_TO_1_DAYS_MOD)
+  } else if (item.sell_in <= 0) {
+    item.quality = 0;
+    sellInChange(item)
+  } else {item.sell_in = 0}
+};
+
+function sulfurasHandler(item) {
+  sellInChange(item)
+};
+
+function conjuredHandler(item) {
+  itemProcessor(item, CONJURED_QUALITY_MOD);
+};
+
+function standardQualityHandler(item) {
+  if (item.sell_in > 0) {
+    itemProcessor(item, STANDARD_QUALITY_MOD);
+  } else if (item.sell_in <= 0) {
+    itemProcessor(item, STANDARD_PAST_SELL_IT_MOD);
+  }
+};
+
+// _______________________________________________________________________
+
+function itemProcessor(item, modifier) {
+  qualchange(item, modifier)
+  qualityRangeHandler(item)
+  sellInChange(item)
+};
+
+function qualchange(item, modifier) {
+  item.quality += modifier
+}
+
+function qualityRangeHandler(item) {
+  if (item.quality < QUALITY_LOWER_LIMIT) {
+    item.quality = 0
+  } else if (item.quality > QUALITY_UPPER_LIMIT) {
+    item.quality = 50
+  }
+};
+
+function sellInChange(item) {
+  item.sell_in -= 1;
+};
