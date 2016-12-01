@@ -122,10 +122,10 @@ describe("Gilded Rose", function() {
       expect(items[0].quality).toEqual(80);
     });
 
-    it('sellIn reduces by 1 per day', function(){
-      items = [ new Item('Sulfuras, Hand of Ragnaros', 0, 80) ];
+    it('sellIn is always 0', function(){
+      items = [ new Item('Sulfuras, Hand of Ragnaros', -1, 80) ];
       update_quality();
-      expect(items[0].sell_in).toEqual(-1);
+      expect(items[0].sell_in).toEqual(0);
     });
 
   });
@@ -158,7 +158,3 @@ describe("Gilded Rose", function() {
 
   });
 });
-
-// describe('', function(){
-//
-// });

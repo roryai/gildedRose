@@ -16,6 +16,7 @@ var QUALITY_UPPER_LIMIT       = 50;
 var QUALITY_LOWER_LIMIT       = 0;
 
 var items = []
+
 // _______________________________________________________________________
 
 function update_quality() {
@@ -44,13 +45,12 @@ function backstagePassesQualityHandler(item) {
   } else if (item.sell_in > 0) {
     itemProcessor(item, TICKETS_5_TO_1_DAYS_MOD)
   } else if (item.sell_in <= 0) {
-    item.quality = 0;
-    sellInChange(item)
-  } else {item.sell_in = 0}
+    qualityFloor(item)
+  }
 };
 
 function sulfurasHandler(item) {
-  sellInChange(item)
+  item.sell_in = 0;
 };
 
 function conjuredHandler(item) {
@@ -68,12 +68,12 @@ function standardQualityHandler(item) {
 // _______________________________________________________________________
 
 function itemProcessor(item, modifier) {
-  qualchange(item, modifier)
+  qualityChange(item, modifier)
   qualityRangeHandler(item)
   sellInChange(item)
 };
 
-function qualchange(item, modifier) {
+function qualityChange(item, modifier) {
   item.quality += modifier
 }
 
@@ -87,4 +87,8 @@ function qualityRangeHandler(item) {
 
 function sellInChange(item) {
   item.sell_in -= 1;
+};
+
+function qualityFloor(item) {
+  item.quality = QUALITY_LOWER_LIMIT;
 };
