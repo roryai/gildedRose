@@ -1,19 +1,19 @@
 function Item(name, sell_in, quality) {
-  this.name = name;
+  this.name    = name;
   this.sell_in = sell_in;
   this.quality = quality;
 }
 
 var STANDARD_QUALITY_MOD      = -1;
 var STANDARD_PAST_SELL_IT_MOD = -2;
-var TICKETS_11_PLUS_DAYS_MOD  = 1;
-var TICKETS_10_TO_6_DAYS_MOD  = 2;
-var TICKETS_5_TO_1_DAYS_MOD   = 3;
+var TICKETS_11_PLUS_DAYS_MOD  =  1;
+var TICKETS_10_TO_6_DAYS_MOD  =  2;
+var TICKETS_5_TO_1_DAYS_MOD   =  3;
 var CONJURED_QUALITY_MOD      = -2;
-var BRIE_QUALITY_MOD          = 1;
+var BRIE_QUALITY_MOD          =  1;
 
 var QUALITY_UPPER_LIMIT       = 50;
-var QUALITY_LOWER_LIMIT       = 0;
+var QUALITY_LOWER_LIMIT       =  0;
 
 var items = []
 
@@ -49,11 +49,8 @@ function conjuredHandler(item) {
 };
 
 function standardQualityHandler(item) {
-  if (item.sell_in > 0) {
-    itemProcessor(item, STANDARD_QUALITY_MOD);
-  } else if (item.sell_in <= 0) {
-    itemProcessor(item, STANDARD_PAST_SELL_IT_MOD);
-  }
+  if      (item.sell_in > 0)  {itemProcessor(item, STANDARD_QUALITY_MOD);}
+  else if (item.sell_in <= 0) {itemProcessor(item, STANDARD_PAST_SELL_IT_MOD);}
 };
 
 // _______________________________________________________________________
@@ -69,11 +66,8 @@ function qualityChange(item, modifier) {
 }
 
 function qualityRangeHandler(item) {
-  if (item.quality < QUALITY_LOWER_LIMIT) {
-    item.quality = 0
-  } else if (item.quality > QUALITY_UPPER_LIMIT) {
-    item.quality = 50
-  }
+  if      (item.quality < QUALITY_LOWER_LIMIT) {item.quality = 0}
+  else if (item.quality > QUALITY_UPPER_LIMIT) {item.quality = 50}
 };
 
 function sellInChange(item) {
