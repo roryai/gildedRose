@@ -21,15 +21,11 @@ var items = []
 
 function update_quality() {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].name == "Aged Brie") {
-      brieQualityHandler(items[i])
-    } else if (items[i].name == "Backstage passes") {
-      backstagePassesQualityHandler(items[i])
-    } else if (items[i].name == "Sulfuras, Hand of Ragnaros") {
-      sulfurasHandler(items[i])
-    } else if (items[i].name == "Conjured Mana Cake") {
-      conjuredHandler(items[i])
-    } else {standardQualityHandler(items[i])}
+    if      (items[i].name == "Aged Brie")          {brieQualityHandler(items[i])}
+    else if (items[i].name == "Backstage passes")   {backstagePassesQualityHandler(items[i])}
+    else if (items[i].name == "Sulfuras")           {sulfurasHandler(items[i])}
+    else if (items[i].name == "Conjured Mana Cake") {conjuredHandler(items[i])}
+    else                                            {standardQualityHandler(items[i])}
   }
 }
 
@@ -38,15 +34,10 @@ function brieQualityHandler(item) {
 };
 
 function backstagePassesQualityHandler(item) {
-  if (item.sell_in > 10) {
-    itemProcessor(item, TICKETS_11_PLUS_DAYS_MOD)
-  } else if (item.sell_in > 5) {
-    itemProcessor(item, TICKETS_10_TO_6_DAYS_MOD)
-  } else if (item.sell_in > 0) {
-    itemProcessor(item, TICKETS_5_TO_1_DAYS_MOD)
-  } else if (item.sell_in <= 0) {
-    qualityFloor(item)
-  }
+  if      (item.sell_in > 10) {itemProcessor(item, TICKETS_11_PLUS_DAYS_MOD)}
+  else if (item.sell_in > 5)  {itemProcessor(item, TICKETS_10_TO_6_DAYS_MOD)}
+  else if (item.sell_in > 0)  {itemProcessor(item, TICKETS_5_TO_1_DAYS_MOD)}
+  else if (item.sell_in <= 0) {qualityFloor(item)}
 };
 
 function sulfurasHandler(item) {

@@ -117,13 +117,13 @@ describe("Gilded Rose", function() {
   describe('SULFURAS', function(){
 
     it('Quality does not change', function(){
-      items = [ new Item('Sulfuras, Hand of Ragnaros', -1, 80) ];
+      items = [ new Item('Sulfuras', -1, 80) ];
       update_quality();
       expect(items[0].quality).toEqual(80);
     });
 
     it('sellIn is always 0', function(){
-      items = [ new Item('Sulfuras, Hand of Ragnaros', -1, 80) ];
+      items = [ new Item('Sulfuras', -1, 80) ];
       update_quality();
       expect(items[0].sell_in).toEqual(0);
     });
